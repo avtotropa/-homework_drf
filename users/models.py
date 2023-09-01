@@ -12,6 +12,9 @@ class User(AbstractUser):
     city = models.CharField(max_length=50, verbose_name='Город', **NULLABLE)
     avatar = models.ImageField(upload_to='avatars/', verbose_name='Аватар', **NULLABLE)
 
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
     def __str__(self):
         return f'{self.email}'
 
