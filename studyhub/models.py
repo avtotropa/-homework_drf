@@ -1,5 +1,6 @@
-from django.db import models
+from django.utils import timezone
 
+from django.db import models
 from users.models import NULLABLE, User
 
 
@@ -34,17 +35,21 @@ class Lesson(models.Model):
 
 
 class Payment(models.Model):
+    CASH = 'cash'
+    TRANSFER = 'transfer'
+
     PAYMENT_METHOD_CHOICES = (
-        ('card', 'Карта'),
-        ('cash', 'Наличными'),
+        (TRANSFER, 'Карта'),
+        (CASH, 'Наличными'),
     )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь', **NULLABLE)
-    date_of_payment = models.DateTimeField(verbose_name='Дата платежа', **NULLABLE)
+    date_of_payment = models.DateTimeField(default=timezone.now, verbose_name='Дата платежа')
     paid_course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Оплаченный курс', **NULLABLE)
     paid_lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, verbose_name='Оплаченный урок', **NULLABLE)
-    payment_amount = models.IntegerField(verbose_name='Сумма платежа')
-    payment_method = models.CharField(choices=PAYMENT_METHOD_CHOICES, verbose_name='Метод платежа', **NULLABLE)
+    payment_amount = models.PositiveIntegerField(verbose_name='Сумма платежа')
+    payment_method = models.CharField(choices=PAYMENT_METHOD_CHOICES, default=TRANSFER, verbose_name='Метод платежа', )
+    payment_intent_id = models.CharField(max_length=100, verbose_name='ID платежа Stripe', **NULLABLE)
 
     def __str__(self):
         if self.paid_lesson:

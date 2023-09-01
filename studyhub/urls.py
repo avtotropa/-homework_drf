@@ -4,7 +4,7 @@ from rest_framework import routers
 from studyhub.apps import StudyhubConfig
 from studyhub.views.course import *
 from studyhub.views.lesson import *
-from studyhub.views.payment import PaymentListView
+from studyhub.views.payment import PaymentListAPIView, PaymentCreateAPIView
 
 router = routers.DefaultRouter()
 router.register(r'course', CourseViewSet)
@@ -19,5 +19,6 @@ urlpatterns = [
     path('<int:pk>/delete/', LessonDeleteView.as_view(), name='lesson-delete'),
 
     # payment
-    path('payment/', PaymentListView.as_view(), name='payment-list'),
+    path('payment/', PaymentListAPIView.as_view(), name='payment-list'),
+    path('payment/create/', PaymentCreateAPIView.as_view(), name='payment-create')
 ] + router.urls
