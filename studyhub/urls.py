@@ -1,12 +1,15 @@
 from django.urls import path
 from rest_framework import routers
 
+from studyhub.apps import StudyhubConfig
 from studyhub.views.course import *
 from studyhub.views.lesson import *
 from studyhub.views.payment import PaymentListView
 
 router = routers.DefaultRouter()
 router.register(r'course', CourseViewSet)
+
+app_name = StudyhubConfig.name
 
 urlpatterns = [
     path('', LessonListView.as_view(), name='lesson-list'),

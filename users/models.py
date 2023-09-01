@@ -35,11 +35,11 @@ class Subscription(models.Model):
         max_length=300, verbose_name='Название подписки', **NULLABLE,
     )
     course = models.ForeignKey(
-        'course.Course', verbose_name='Курс для подписки', on_delete=models.CASCADE,
+        'studyhub.Course', verbose_name='Курс для подписки', on_delete=models.CASCADE,
         related_name='subscriptions',
     )
     user = models.ForeignKey(
-        'users.User', verbose_name='Пользователь', on_delete=models.CASCADE,
+        User, verbose_name='Пользователь', on_delete=models.CASCADE,
         related_name='subscriptions',
     )
 

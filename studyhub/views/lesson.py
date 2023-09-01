@@ -2,6 +2,7 @@ from rest_framework.generics import RetrieveAPIView, UpdateAPIView, CreateAPIVie
 from rest_framework.permissions import IsAuthenticated
 
 from studyhub.models import Lesson
+from studyhub.paginator import ListPaginator
 from studyhub.permissions import IsModerator, IsOwner
 from studyhub.serializers.lesson import LessonSerializer
 
@@ -19,6 +20,7 @@ class LessonUpdateView(UpdateAPIView):
 
 
 class LessonListView(ListAPIView):
+    pagination_class = ListPaginator
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
     # permission_classes = [IsAuthenticated, IsModerator]
