@@ -12,3 +12,14 @@ class IsModerator(BasePermission):
             return True
 
         return False
+
+
+class IsOwner(BasePermission):
+    message = "Вы не являетесь владельцем данного контента."
+
+    def has_permission(self, request, obj):
+
+        if request.user.role == obj.owner:
+            return True
+
+        return False
