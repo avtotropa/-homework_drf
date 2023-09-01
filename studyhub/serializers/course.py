@@ -14,13 +14,6 @@ class CourseSerializer(serializers.ModelSerializer):
     def get_lessons_of_course(self, obj):
         return LessonSerializer(Lesson.objects.filter(course=obj), many=True).data
 
-    def get_subscribe(self, obj):
-        request = self.context.get('request')
-        if obj.subscribe.filter(user=request.user).exists():
-            item = obj.subscribe.filter(user=request.user)
-            return item[0].is_subscribe
-        return False
-
     class Meta:
         model = Course
-        fields = ('id', 'name', 'lesson_count', 'lessons_of_course', 'subscribe',)
+        fields = ('id', 'name', 'lesson_count', 'lessons_of_course')
