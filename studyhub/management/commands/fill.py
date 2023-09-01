@@ -1,6 +1,6 @@
 from django.core.management import BaseCommand
 
-from studyhub.models import Payment
+from studyhub.models import Payment, Course
 
 
 class Command(BaseCommand):
@@ -11,16 +11,16 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         payment_data = [
             {"payment_amount": 1000,
-             "paid_course": 1,
+             "paid_course": Course.objects.get(pk=1),
              },
             {"payment_amount": 2000,
-             "paid_course": 2,
+             "paid_course": Course.objects.get(pk=2),
              },
             {"payment_amount": 3000,
-             "paid_course": 3,
+             "paid_course": Course.objects.get(pk=3),
              },
             {"payment_amount": 4000,
-             "paid_course": 4,
+             "paid_course": Course.objects.get(pk=4),
              },
         ]
 

@@ -3,6 +3,7 @@ from rest_framework import routers
 
 from studyhub.views.course import *
 from studyhub.views.lesson import *
+from studyhub.views.payment import PaymentListView
 
 router = routers.DefaultRouter()
 router.register(r'course', CourseViewSet)
@@ -13,4 +14,7 @@ urlpatterns = [
     path('create/', LessonCreateView.as_view(), name='lesson-create'),
     path('<int:pk>/update/', LessonUpdateView.as_view(), name='lesson-update'),
     path('<int:pk>/delete/', LessonDeleteView.as_view(), name='lesson-delete'),
+
+    # payment
+    path('payment/', PaymentListView.as_view(), name='payment-list'),
 ] + router.urls

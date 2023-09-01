@@ -6,4 +6,4 @@ from studyhub.models import Lesson
 class LessonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
-        fields = '__all__'
+        fields = ('id', 'name', 'description', )
