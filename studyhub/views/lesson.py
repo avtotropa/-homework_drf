@@ -24,5 +24,4 @@ class LessonCreateView(CreateAPIView):
 
 
 class LessonDeleteView(DestroyAPIView):
-    serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
