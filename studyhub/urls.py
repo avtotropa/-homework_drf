@@ -4,7 +4,6 @@ from rest_framework import routers
 from studyhub.views.course import *
 from studyhub.views.lesson import *
 from studyhub.views.payment import PaymentListView
-from studyhub.views.subscription import SubscriptionCreateAPIView
 
 router = routers.DefaultRouter()
 router.register(r'course', CourseViewSet)
@@ -18,7 +17,4 @@ urlpatterns = [
 
     # payment
     path('payment/', PaymentListView.as_view(), name='payment-list'),
-
-    # subscription
-    path('subscription/create/', SubscriptionCreateAPIView.as_view(), name='subscription-list'),
 ] + router.urls

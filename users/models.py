@@ -28,3 +28,29 @@ class User(AbstractUser):
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+
+
+class Subscription(models.Model):
+    course_name = models.CharField(
+        max_length=300, verbose_name='Название подписки', **NULLABLE,
+    )
+    course = models.ForeignKey(
+        'course.Course', verbose_name='Курс для подписки', on_delete=models.CASCADE,
+        related_name='subscriptions',
+    )
+    user = models.ForeignKey(
+        'users.User', verbose_name='Пользователь', on_delete=models.CASCADE,
+        related_name='subscriptions',
+    )
+
+    def __str__(self):
+        return f'{self.course} {self.user}'
+
+    def save(self, *args, **kwargs):
+        self.course_name = self.course.name
+
+        return super(Subscription, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'Подписка на курс'
+        verbose_name_plural = 'Подписки на курс'
